@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --Inter-font: "Inter", sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app-container {
+  border: 1px solid black;
+  width: 70%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: min(15px);
+}
+
+#header {
+  width: 100%;
+  margin-bottom: min(50px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+#search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.207);
+  border-radius: 50px;
+  width: max-content;
+  padding: 0 10px;
+}
+
+#search-bar input {
+  border: none;
+  outline: none;
+  padding: 5px;
+}
+
+#search-bar i {
+  color: rgba(0, 0, 0, 0.207);
+}
+
+#dark-mode {
+  border: 1px solid black;
+  border-radius: 30px;
+  height: 100%;
+  min-width: 60px;
+  padding: 1px;
+}
+
+#switch {
+  border: 1px solid black;
+  border-radius: 100%;
+  height: 100%;
+  width: 50%;
+  background-color: black;
+}
+
+#flex-content {
+  display: flex;
+  height: 80%;
+  width: 95%;
+}
+
+.content {
+  border: 1px solid black;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#location {
+  text-align: center;
+  margin-bottom: 10px;
+  width: 90%;
+  font-family: var(--Inter-font);
+}
+
+#city {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+#country {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#suggestion-box {
+  border: 1px solid black;
+  height: 100%;
+  max-height: 300px;
+  width: 75%;
+}

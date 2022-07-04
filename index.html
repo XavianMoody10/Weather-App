@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/16b96c8656.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div id="app-container">
+      <!-- Header -->
+      <div id="header">
+        <!-- Search -->
+        <div id="search-bar">
+          <input type="text" placeholder="Search location" />
+          <i class="fas fa-search"></i>
+        </div>
+        <!-- Dark mode toggel -->
+        <div id="dark-mode">
+          <div id="switch"></div>
+        </div>
+      </div>
+
+      <div id="flex-content">
+        <div class="content">
+          <div id="location">
+            <p id="city">Lauderdale Lakes, FL</p>
+            <p id="country">United States</p>
+          </div>
+
+          <div id="suggestion-box">
+            <p id="suggestion">Lauderdale Lakes, FL</p>
+            <p id="suggestion">Broward County, FL</p>
+            <p id="suggestion">Orlando, FL</p>
+            <p id="suggestion">Tampa, FL</p>
+          </div>
+        </div>
+
+        <div class="content">
+          <div id="date" class="grid-item">
+            <p id="month">June</p>
+            <p id="day">21</p>
+          </div>
+
+          <p class="grid-item"></p>
+          <p class="grid-item"></p>
+          <p class="grid-item"></p>
+
+          <img src="" alt="" class="grid-item" />
+
+          <p id="description">Weather Description</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
