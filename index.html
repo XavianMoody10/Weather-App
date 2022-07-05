@@ -13,47 +13,40 @@
   </head>
   <body>
     <div id="app-container">
-      <!-- Header -->
-      <div id="header">
-        <!-- Search -->
-        <div id="search-bar">
-          <input type="text" placeholder="Search location" />
-          <i class="fas fa-search"></i>
-        </div>
-        <!-- Dark mode toggel -->
-        <div id="dark-mode">
-          <div id="switch"></div>
-        </div>
+      <div id="search">
+        <input type="text" placeholder="Search City" />
+        <i class="fas fa-search"></i>
       </div>
 
-      <div id="flex-content">
-        <div class="content">
+      <div id="grid-wrapper">
+        <div class="content-wrapper">
           <div id="location">
             <p id="city">Lauderdale Lakes, FL</p>
             <p id="country">United States</p>
           </div>
 
           <div id="suggestion-box">
-            <p id="suggestion">Lauderdale Lakes, FL</p>
-            <p id="suggestion">Broward County, FL</p>
-            <p id="suggestion">Orlando, FL</p>
-            <p id="suggestion">Tampa, FL</p>
+            <!-- <p class="options">Lauderdale Lakes, FL</p>
+            <p class="options">Broward County, FL</p>
+            <p class="options">Tampa, FL</p>
+            <p class="options">Jacksonville, FL</p>
+            <p class="options">Orlando, FL</p> -->
           </div>
         </div>
 
-        <div class="content">
-          <div id="date" class="grid-item">
-            <p id="month">June</p>
-            <p id="day">21</p>
+        <div class="content-wrapper">
+          <div id="grid-container">
+            <div class="grid-item" id="date"></div>
+
+            <div class="grid-item" id="degrees">Degrees: <span></span></div>
+            <div class="grid-item" id="humidity">Humidity: <span></span></div>
+            <div class="grid-item" id="wind">Wind: <span></span></div>
+
+            <div id="visual" class="grid-item">
+              <img src="" alt="" />
+              <p>Clustered Clouds</p>
+            </div>
           </div>
-
-          <p class="grid-item"></p>
-          <p class="grid-item"></p>
-          <p class="grid-item"></p>
-
-          <img src="" alt="" class="grid-item" />
-
-          <p id="description">Weather Description</p>
         </div>
       </div>
     </div>
