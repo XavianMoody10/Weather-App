@@ -131,28 +131,31 @@ const displaySuggestions = (data) => {
 
 // THIS FUNCTION WILL DISPLAY THE WEATHER DATA ONTO THE DOM.
 const displayWeather = (data) => {
-  console.log(data);
+  const degrees = document.querySelector("#degrees span");
+  const humidity = document.querySelector("#humidity span");
+  const wind = document.querySelector("#wind span");
+  const weatherImage = document.querySelector("#visual img");
+  const weatherDescription = document.querySelector("#visual p");
+
+  degrees.textContent = `${data.main.temp} \u00B0F`;
+  humidity.textContent = `${data.main.humidity}%`;
+  wind.textContent = `${data.wind.speed} mph`;
+  weatherImage.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  weatherDescription.textContent = data.weather[0].description.split(",");
 };
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 searchBar.addEventListener("input", (e) => {
+  const city = document.querySelector("#city");
+  const country = document.querySelector("#country");
+
+  if (e.target.value == "") {
+    city.textContent = "No Results";
+    country.textContent = "";
+  }
+
   locationSearch(e.target.value);
 });
-
-// WHEN A USER CLICKS ON ONE OF THE OPTIONS IN THE SUGGESTION BOX
-// document.querySelectorAll("*").forEach((el) => {
-//   const suggestionBox = document.querySelector("#suggestion-box");
-
-//   el.addEventListener("click", (e) => {
-//     e.stopPropagation();
-
-//     if (e.target.classList.contains("options")) {
-//       console.log(e.target.textContent);
-//       const index = [...suggestionBox.children].indexOf(e.target);
-//       console.log(index);
-//     }
-//   });
-// });
 
 window.addEventListener("load", getUserCoords);
