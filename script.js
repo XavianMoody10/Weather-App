@@ -39,6 +39,8 @@ const locationSearch = (location) => {
     });
 };
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // GET LOCATION DATA
 const getLocation = (data) => {
   // If searchbar contains a value.
@@ -48,6 +50,8 @@ const getLocation = (data) => {
     displayLocation("", data);
   }
 };
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // THIS FUNCTION WILL DISPLAY THE LOCATION DATA ONTO THE DOM.
 const displayLocation = (firstLoc, allLoc) => {
@@ -59,6 +63,8 @@ const displayLocation = (firstLoc, allLoc) => {
   }
 };
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // THIS FUNCTION WILL DISPLAY THE LOCATION INFO INTO THE DOM
 const locationDOM = (data) => {
   const cityDOM = document.querySelector("#location #city");
@@ -68,17 +74,24 @@ const locationDOM = (data) => {
     cityName: data.name,
     stateName: data.state,
     countryName: data.country,
-    insertDom: function () {
-      cityDOM.textContent = `${locationDOMData.cityName}, ${locationDOMData.stateName}`;
-      countryDOM.textContent = `${locationDOMData.countryName}`;
-    },
   };
+
+  cityDOM.textContent = `${locationDOMData.cityName}, ${locationDOMData.stateName}`;
+  countryDOM.textContent = `${locationDOMData.countryName}`;
 };
+
+//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // THIS FUNCTION DISPLAYS THE OPTIONS IN THE SUGGESTION BOX
 const displaySuggestions = (data) => {
   const suggestionBox = document.querySelector("#suggestion-box");
 
+  // Remove old options in the suggestion box
+  [...suggestionBox.children].forEach((child) => {
+    suggestionBox.removeChild(child);
+  });
+
+  // Appends new options into suggestion box
   data.forEach((options) => {
     const paragraph = document.createElement("p");
     paragraph.classList.add("options");
@@ -87,19 +100,62 @@ const displaySuggestions = (data) => {
   });
 };
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // THIS FUNCTION WILL DISPLAY THE WEATHER DATA ONTO THE DOM.
 const displayWeather = (data) => {
-  // console.log(data);
+  console.log(data);
 };
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 searchBar.addEventListener("input", (e) => {
+  locationSearch(e.target.value);
+});
+
+// WHEN A USER CLICKS ON ONE OF THE OPTIONS IN THE SUGGESTION BOX
+document.querySelectorAll("*").forEach((el) => {
   const suggestionBox = document.querySelector("#suggestion-box");
 
-  [...suggestionBox.children].forEach((child) => {
-    suggestionBox.removeChild(child);
-  });
+  el.addEventListener("click", (e) => {
+    e.stopPropagation();
 
-  locationSearch(e.target.value);
+    if (e.target.classList.contains("options")) {
+      const index = [...suggestionBox.children].indexOf(e.target);
+      const location = e.target.textContent.split(",");
+      const city = location[0];
+      const country = location[1].replaceAll(" ", "");
+      domLocationName(city);
+
+      function domLocationName(city) {
+        fetch(
+          `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=97773d5af5401e1b00aed3a63620b57e`
+        )
+          .then((data) => data.json())
+          .then((data) => {
+            console.log(data);
+            locationDOM(data[index]);
+            domWeather(data[index].lat, data[index].lon);
+          })
+          .catch(() => {
+            console.log("Failed");
+          });
+      }
+
+      function domWeather(lat, lon) {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=97773d5af5401e1b00aed3a63620b57e`
+        )
+          .then((data) => data.json())
+          .then((data) => {
+            displayWeather(data);
+          })
+          .catch((failed) => {
+            console.log("Failed");
+          });
+      }
+    }
+  });
 });
 
 window.addEventListener("load", getUserCoords);
