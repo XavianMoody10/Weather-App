@@ -32,6 +32,7 @@ const locationSearch = (location) => {
   )
     .then((data) => data.json())
     .then((data) => {
+      console.log(data);
       getLocation(data);
     })
     .catch(() => {
@@ -44,7 +45,10 @@ const locationSearch = (location) => {
 // GET LOCATION DATA
 const getLocation = (data) => {
   // If searchbar contains a value.
-  if (searchBar.value.length == 0 && data.length > 0) {
+  if (
+    (searchBar.value.length == 0 && data.length > 0) ||
+    (searchBar.value.length > 0 && data.length > 0)
+  ) {
     displayLocation(data[0], data);
   } else {
     displayLocation("", data);
@@ -98,6 +102,29 @@ const displaySuggestions = (data) => {
     paragraph.textContent = `${options.name}, ${options.state}`;
     suggestionBox.append(paragraph);
   });
+
+  // When the user clicks on any of the options
+  document.querySelectorAll("*").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      if (e.target.classList.contains("options")) {
+        const index = [...suggestionBox.children].indexOf(e.target);
+        displayLocation(data[index], data);
+
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${data[index].lat}&lon=${data[index].lon}&appid=97773d5af5401e1b00aed3a63620b57e`
+        )
+          .then((data) => data.json())
+          .then((data) => {
+            displayWeather(data);
+          })
+          .catch((failed) => {
+            console.log("Failed");
+          });
+      }
+    });
+  });
 };
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,48 +141,18 @@ searchBar.addEventListener("input", (e) => {
 });
 
 // WHEN A USER CLICKS ON ONE OF THE OPTIONS IN THE SUGGESTION BOX
-document.querySelectorAll("*").forEach((el) => {
-  const suggestionBox = document.querySelector("#suggestion-box");
+// document.querySelectorAll("*").forEach((el) => {
+//   const suggestionBox = document.querySelector("#suggestion-box");
 
-  el.addEventListener("click", (e) => {
-    e.stopPropagation();
+//   el.addEventListener("click", (e) => {
+//     e.stopPropagation();
 
-    if (e.target.classList.contains("options")) {
-      const index = [...suggestionBox.children].indexOf(e.target);
-      const location = e.target.textContent.split(",");
-      const city = location[0];
-      const country = location[1].replaceAll(" ", "");
-      domLocationName(city);
-
-      function domLocationName(city) {
-        fetch(
-          `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=97773d5af5401e1b00aed3a63620b57e`
-        )
-          .then((data) => data.json())
-          .then((data) => {
-            console.log(data);
-            locationDOM(data[index]);
-            domWeather(data[index].lat, data[index].lon);
-          })
-          .catch(() => {
-            console.log("Failed");
-          });
-      }
-
-      function domWeather(lat, lon) {
-        fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=97773d5af5401e1b00aed3a63620b57e`
-        )
-          .then((data) => data.json())
-          .then((data) => {
-            displayWeather(data);
-          })
-          .catch((failed) => {
-            console.log("Failed");
-          });
-      }
-    }
-  });
-});
+//     if (e.target.classList.contains("options")) {
+//       console.log(e.target.textContent);
+//       const index = [...suggestionBox.children].indexOf(e.target);
+//       console.log(index);
+//     }
+//   });
+// });
 
 window.addEventListener("load", getUserCoords);
