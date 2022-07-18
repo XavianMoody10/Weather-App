@@ -1,4 +1,5 @@
 "use strict";
+
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // REUSABLE FUNCTIONS
 
@@ -41,19 +42,26 @@ const failedError = () => {
 
 // WHEN THE PAGE LOADS, THE USER'S CURRENT LOCATION'S WEATHER WILL DISPLAY
 function getUserCoords() {
-  const suggestionBox = document.querySelector("#suggestion-box");
+  const success = () => {
+    const suggestionBox = document.querySelector("#suggestion-box");
 
-  navigator.geolocation.getCurrentPosition((position) => {
-    let latitude = position.coords.latitude;
-    let longitude = position.coords.longitude;
-    getWeather(latitude, longitude);
-    console.log("LOADING...");
+    navigator.geolocation.getCurrentPosition((position) => {
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      getWeather(latitude, longitude);
+      console.log("LOADING...");
 
-    setTimeout(() => {
-      // ADD THE STYLE CLASS TO THE FIRST ELEMENT IN THE SUGGESTION BOX
-      suggestionBox.children[0].classList.add("option-select");
-    }, 300);
-  });
+      setTimeout(() => {
+        // ADD THE STYLE CLASS TO THE FIRST ELEMENT IN THE SUGGESTION BOX
+        suggestionBox.children[0].classList.add("option-select");
+      }, 300);
+    });
+  };
+
+  const fail = () => {
+    console.log("Failed");
+  };
+  navigator.geolocation.getCurrentPosition(success, fail);
 }
 
 // THIS WILL FETCH THE WEATHER DATA. MUST PASS IN A LONGITUDE AND LATITUDE OF LOCATION.
