@@ -89,7 +89,7 @@ const locationSearch = (location) => {
   const searchBar = document.querySelector("#search input");
 
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=97773d5af5401e1b00aed3a63620b57e`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=97773d5af5401e1b00aed3a63620b57e`
   )
     .then((data) => data.json())
     .then((data) => {
@@ -224,7 +224,7 @@ const displayWeather = (data) => {
       degrees.textContent = `${this.degrees} \u00B0F`;
       humidity.textContent = `${this.humidity}%`;
       wind.textContent = `${this.wind} mph`;
-      weatherImage.src = `http://openweathermap.org/img/wn/${this.weatherImage}@2x.png`;
+      weatherImage.src = `https://openweathermap.org/img/wn/${this.weatherImage}@2x.png`;
     },
   };
 
