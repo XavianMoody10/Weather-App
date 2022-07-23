@@ -1,0 +1,49 @@
+@media (max-width: 1263px) {
+  #grid-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  body {
+    height: auto;
+  }
+
+  #suggestion-box {
+    width: 100%;
+  }
+
+  .content-wrapper {
+    border: 1px solid black;
+    width: 70%;
+  }
+
+  #grid-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 969px) {
+  #date {
+    display: none;
+  }
+
+  #grid-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #search {
+    padding: 10px;
+    margin: 0;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 471px) {
+  #app-container {
+    width: 100%;
+  }
+}

@@ -169,6 +169,7 @@ body {
 #visual {
   grid-column: 4/10;
   grid-row: 1/8;
+  background-color: white;
 }
 
 /* --------------------------------------------------------- */
@@ -224,7 +225,7 @@ body {
 
 #visual img {
   object-fit: contain;
-  height: 80%;
+  /* height: 80%; */
   width: 100%;
   margin-bottom: 10px;
   background-color: rgba(172, 172, 172, 0.881);
